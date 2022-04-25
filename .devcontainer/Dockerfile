@@ -27,6 +27,10 @@ RUN apt-get update && apt-get install -y \
     g++ \
     clang-format \
     ninja-build \
+    libboost-all-dev \
+    libspdlog-dev \
+    libfmt-dev \
+    catch2 \
     && rm -rf /var/lib/apt/lists/*
 
 # some utilities for runtime

@@ -28,7 +28,7 @@ CPMFindPackage(
   GIT_TAG 5.2.1
 )
 if(fmt_ADDED)
-  add_library(FMT::fmt ALIAS fmt)
+  add_library(fmt::fmt ALIAS fmt)
 endif()
 
 CPMFindPackage(
@@ -37,48 +37,47 @@ CPMFindPackage(
   GIT_TAG v1.2.1
 )
 if(spdlog_ADDED)
-  add_library(SPDLOG::spdlog ALIAS spdlog)
+  add_library(spdlog::spdlog ALIAS spdlog)
 endif()
 
 
-find_package(Boost REQUIRED)
-#CPMFindPackage(
-#  NAME boost
-#  GITHUB_REPOSITORY boostorg/boost
-#  GIT_TAG boost-1.68.0
-#)
-#if(boost_ADDED)
-#  add_library(boost INTERFACE)
-#  target_include_directories(boost INTERFACE 
-#    "${boost_SOURCE_DIR}/libs/circular_buffer/include/"
-#    "${boost_SOURCE_DIR}/libs/crc/include/"
-#    "${boost_SOURCE_DIR}/libs/asio/include/"
-#    "${boost_SOURCE_DIR}/libs/config/include/"
-#    "${boost_SOURCE_DIR}/libs/integer/include/"
-#    "${boost_SOURCE_DIR}/libs/static_assert/include/"
-#    "${boost_SOURCE_DIR}/libs/system/include/"
-#    "${boost_SOURCE_DIR}/libs/predef/include/"
-#    "${boost_SOURCE_DIR}/libs/assert/include/"
-#    "${boost_SOURCE_DIR}/libs/core/include/"
-#    "${boost_SOURCE_DIR}/libs/throw_exception/include/"
-#    "${boost_SOURCE_DIR}/libs/date_time/include/"
-#    "${boost_SOURCE_DIR}/libs/smart_ptr/include/"
-#    "${boost_SOURCE_DIR}/libs/utility/include/"
-#    "${boost_SOURCE_DIR}/libs/type_traits/include/"
-#    "${boost_SOURCE_DIR}/libs/mpl/include/"
-#    "${boost_SOURCE_DIR}/libs/preprocessor/include/"
-#    "${boost_SOURCE_DIR}/libs/numeric/conversion/include/"
-#    "${boost_SOURCE_DIR}/libs/bind/include/"
-#    "${boost_SOURCE_DIR}/libs/regex/include/"
-#    "${boost_SOURCE_DIR}/libs/container/include/"
-#    "${boost_SOURCE_DIR}/libs/move/include/"
-#    "${boost_SOURCE_DIR}/libs/intrusive/include/"
-#    "${boost_SOURCE_DIR}/libs/concept_check/include/"
-#    "${boost_SOURCE_DIR}/libs/iterator/include/"
-#    "${boost_SOURCE_DIR}/libs/detail/include/"
-#  )
-#  add_library(Boost::boost ALIAS boost)
-#endif()
+CPMFindPackage(
+  NAME Boost
+  GITHUB_REPOSITORY boostorg/boost
+  GIT_TAG boost-1.68.0
+)
+if(Boost_ADDED)
+  add_library(boost INTERFACE)
+  target_include_directories(boost INTERFACE 
+    "${boost_SOURCE_DIR}/libs/circular_buffer/include/"
+    "${boost_SOURCE_DIR}/libs/crc/include/"
+    "${boost_SOURCE_DIR}/libs/asio/include/"
+    "${boost_SOURCE_DIR}/libs/config/include/"
+    "${boost_SOURCE_DIR}/libs/integer/include/"
+    "${boost_SOURCE_DIR}/libs/static_assert/include/"
+    "${boost_SOURCE_DIR}/libs/system/include/"
+    "${boost_SOURCE_DIR}/libs/predef/include/"
+    "${boost_SOURCE_DIR}/libs/assert/include/"
+    "${boost_SOURCE_DIR}/libs/core/include/"
+    "${boost_SOURCE_DIR}/libs/throw_exception/include/"
+    "${boost_SOURCE_DIR}/libs/date_time/include/"
+    "${boost_SOURCE_DIR}/libs/smart_ptr/include/"
+    "${boost_SOURCE_DIR}/libs/utility/include/"
+    "${boost_SOURCE_DIR}/libs/type_traits/include/"
+    "${boost_SOURCE_DIR}/libs/mpl/include/"
+    "${boost_SOURCE_DIR}/libs/preprocessor/include/"
+    "${boost_SOURCE_DIR}/libs/numeric/conversion/include/"
+    "${boost_SOURCE_DIR}/libs/bind/include/"
+    "${boost_SOURCE_DIR}/libs/regex/include/"
+    "${boost_SOURCE_DIR}/libs/container/include/"
+    "${boost_SOURCE_DIR}/libs/move/include/"
+    "${boost_SOURCE_DIR}/libs/intrusive/include/"
+    "${boost_SOURCE_DIR}/libs/concept_check/include/"
+    "${boost_SOURCE_DIR}/libs/iterator/include/"
+    "${boost_SOURCE_DIR}/libs/detail/include/"
+  )
+  add_library(Boost::boost ALIAS boost)
+endif()
 
 option(HDLCO_BUILD_TESTS "Build with tests" ON)
 option(HDLCO_BUILD_EXAMPLES "Build with examples" OFF)

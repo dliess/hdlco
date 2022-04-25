@@ -12,7 +12,7 @@ target_include_directories(example
 
 target_link_libraries(example
   ${PROJECT_NAME}
-  SPDLOG::spdlog
+  spdlog::spdlog
   Boost::boost
   Catch2::Catch2
   serial

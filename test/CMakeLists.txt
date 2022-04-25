@@ -8,7 +8,7 @@ target_include_directories(hdlc_test
 
 target_link_libraries(hdlc_test
   ${PROJECT_NAME}
-  SPDLOG::spdlog
+  spdlog::spdlog
   Boost::boost
   Catch2::Catch2
   Threads::Threads
