@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.9)
 project(hdlc
   VERSION 1.0.2
   LANGUAGES CXX
-  )
+)
 
-include(cmake/conan.cmake)
+include(cmake/CPM.cmake)
 
 # Enable/disable testing
 option(TESTS_ENABLED "Enable automatic tests" OFF)
@@ -22,17 +22,83 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-conan_cmake_run(
-  REQUIRES fmt/5.2.1@bincrafters/stable
-  REQUIRES spdlog/1.2.1@bincrafters/stable
-  REQUIRES catch2/2.4.1@bincrafters/stable
-  REQUIRES boost/1.68.0@conan/stable
-  BASIC_SETUP
-  CMAKE_TARGETS
-  BUILD fmt spdlog catch2 boost
+CPMFindPackage(
+  NAME fmt
+  GITHUB_REPOSITORY fmtlib/fmt
+  GIT_TAG 5.2.1
 )
+if(fmt_ADDED)
+  add_library(FMT::fmt ALIAS fmt)
+endif()
+
+CPMFindPackage(
+  NAME spdlog
+  GITHUB_REPOSITORY gabime/spdlog
+  GIT_TAG v1.2.1
+)
+if(spdlog_ADDED)
+  add_library(SPDLOG::spdlog ALIAS spdlog)
+endif()
+
+
+find_package(Boost REQUIRED)
+#CPMFindPackage(
+#  NAME boost
+#  GITHUB_REPOSITORY boostorg/boost
+#  GIT_TAG boost-1.68.0
+#)
+#if(boost_ADDED)
+#  add_library(boost INTERFACE)
+#  target_include_directories(boost INTERFACE 
+#    "${boost_SOURCE_DIR}/libs/circular_buffer/include/"
+#    "${boost_SOURCE_DIR}/libs/crc/include/"
+#    "${boost_SOURCE_DIR}/libs/asio/include/"
+#    "${boost_SOURCE_DIR}/libs/config/include/"
+#    "${boost_SOURCE_DIR}/libs/integer/include/"
+#    "${boost_SOURCE_DIR}/libs/static_assert/include/"
+#    "${boost_SOURCE_DIR}/libs/system/include/"
+#    "${boost_SOURCE_DIR}/libs/predef/include/"
+#    "${boost_SOURCE_DIR}/libs/assert/include/"
+#    "${boost_SOURCE_DIR}/libs/core/include/"
+#    "${boost_SOURCE_DIR}/libs/throw_exception/include/"
+#    "${boost_SOURCE_DIR}/libs/date_time/include/"
+#    "${boost_SOURCE_DIR}/libs/smart_ptr/include/"
+#    "${boost_SOURCE_DIR}/libs/utility/include/"
+#    "${boost_SOURCE_DIR}/libs/type_traits/include/"
+#    "${boost_SOURCE_DIR}/libs/mpl/include/"
+#    "${boost_SOURCE_DIR}/libs/preprocessor/include/"
+#    "${boost_SOURCE_DIR}/libs/numeric/conversion/include/"
+#    "${boost_SOURCE_DIR}/libs/bind/include/"
+#    "${boost_SOURCE_DIR}/libs/regex/include/"
+#    "${boost_SOURCE_DIR}/libs/container/include/"
+#    "${boost_SOURCE_DIR}/libs/move/include/"
+#    "${boost_SOURCE_DIR}/libs/intrusive/include/"
+#    "${boost_SOURCE_DIR}/libs/concept_check/include/"
+#    "${boost_SOURCE_DIR}/libs/iterator/include/"
+#    "${boost_SOURCE_DIR}/libs/detail/include/"
+#  )
+#  add_library(Boost::boost ALIAS boost)
+#endif()
+
+option(HDLCO_BUILD_TESTS "Build with tests" ON)
+option(HDLCO_BUILD_EXAMPLES "Build with examples" OFF)
 
 add_subdirectory(${PROJECT_NAME})
-add_subdirectory(vendor/serial)   #serial lib required for the example code.
-add_subdirectory(example)
-add_subdirectory(test)
+
+if(HDLCO_BUILD_EXAMPLES)
+  add_subdirectory(example)
+endif()
+if(HDLCO_BUILD_TESTS)
+  find_package(Threads REQUIRED)
+  
+  CPMFindPackage(
+    NAME catch2
+    GITHUB_REPOSITORY catchorg/Catch2
+    GIT_TAG v2.4.1
+  )
+  if(catch2_ADDED)
+    add_library(Catch2::Catch2 ALIAS Catch2)
+  endif()
+
+  add_subdirectory(test)
+endif()

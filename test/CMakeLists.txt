@@ -8,9 +8,10 @@ target_include_directories(hdlc_test
 
 target_link_libraries(hdlc_test
   ${PROJECT_NAME}
-  CONAN_PKG::spdlog
-  CONAN_PKG::boost
-  CONAN_PKG::catch2
+  SPDLOG::spdlog
+  Boost::boost
+  Catch2::Catch2
+  Threads::Threads
 )
 
 set_target_properties(hdlc_test

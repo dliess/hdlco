@@ -1,0 +1,31 @@
+{
+   "name": "MCSmpProWirelessBuildEnv",
+   "build": {
+		"dockerfile": "Dockerfile"
+   },
+   "runArgs" : [ "--rm", "--privileged", "--network=host"
+   ],
+   "settings": { 
+      "terminal.integrated.shell.linux": "/bin/zsh",
+      "terminal.integrated.detectLocale": "off"
+   },
+   "containerEnv": {
+      "DISPLAY": "${localEnv:DISPLAY}",
+      "STM32_TOOLCHAIN_PATH": "/usr"
+   },
+   "mounts" : [
+      "type=bind,source=${env:HOME}/.ssh,target=/home/build-user/.ssh",
+      "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+      "type=bind,source=/dev,target=/dev"
+   ],
+   "extensions": [
+      "eamodio.gitlens",
+      "ms-vscode.cpptools",
+      "twxs.cmake",
+      "ms-vscode.cmake-tools",
+      "jebbs.plantuml",
+      "xaver.clang-format",
+      "joaompinto.vscode-graphviz",
+      "greghoeppner.lintit"
+   ]
+}

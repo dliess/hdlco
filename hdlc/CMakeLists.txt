@@ -16,8 +16,8 @@ target_include_directories(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-  CONAN_PKG::fmt
-  CONAN_PKG::boost
+  FMT::fmt
+  Boost::boost
 )
 
 set_target_properties(${PROJECT_NAME}
@@ -62,41 +62,41 @@ configure_package_config_file(
 #   * <prefix>/lib/libbaz.a
 #   * header location after install: <prefix>/include/foo/Bar.hpp
 #   * headers can be included by C++ code `#include <foo/Bar.hpp>`
-install(
-    TARGETS ${PROJECT_NAME}
-    EXPORT ${TARGETS_EXPORT_NAME}
-    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-)
+#install(
+#    TARGETS ${PROJECT_NAME}
+#    EXPORT ${TARGETS_EXPORT_NAME}
+#    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+#    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+#    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+#    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+#)
 
 # Headers:
-install(
-    DIRECTORY include/
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-    FILES_MATCHING PATTERN "*.h"
-)
+#install(
+#    DIRECTORY include/
+#    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+#    FILES_MATCHING PATTERN "*.h"
+#)
 
 # Config
 #   * <prefix>/lib/cmake/Foo/FooConfig.cmake
 #   * <prefix>/lib/cmake/Foo/FooConfigVersion.cmake
-install(
-    FILES
-      "${project_config}"
-      "${version_config}"
-    DESTINATION
-      "${config_install_dir}"
-)
+#install(
+#    FILES
+#      "${project_config}"
+#     "${version_config}"
+#   DESTINATION
+#      "${config_install_dir}"
+#)
 
 
 # Config
 #   * <prefix>/lib/cmake/Foo/FooTargets.cmake
-install(
-    EXPORT
-      "${TARGETS_EXPORT_NAME}"
-    NAMESPACE
-      "${namespace}"
-    DESTINATION
-      "${config_install_dir}"
-)
+#install(
+#    EXPORT
+#      "${TARGETS_EXPORT_NAME}"
+#    NAMESPACE
+#      "${namespace}"
+#    DESTINATION
+#      "${config_install_dir}"
+#)
